@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Login Anomaly System</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesadmin.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet (Map) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- PDF (optional) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- 🔥 CRITICAL FIX: Map must have height -->
+    <style>
+        #map {
+            height: 350px;
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>🔐 Admin</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Logs</a>
+    <a href="#">Users</a>
+    <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <h2>   Login Activity Dashboard</h2>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters", padding="30px">
+        <input type="text" id="userFilter" placeholder="Filter by username", padding="30px">
+        <input type="date" id="dateFilter">
+
+        <button onclick="applyFilters()">Apply</button>
+        <button onclick="exportCSV()">Export CSV</button>
+        <button onclick="exportPDF()">Export PDF</button>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="cards">
+
+        <div class="card">
+            <h3>Login Types</h3>
+            <canvas id="loginChart"></canvas>
+        </div>
+
+        <div class="card">
+            <h3>Devices</h3>
+            <canvas id="deviceChart"></canvas>
+        </div>
+
+        <div class="card">
+            <h3>Browsers</h3>
+            <canvas id="browserChart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- MAP -->
+    <div class="card">
+        <h3>User Login Locations</h3>
+        <div id="map"></div>
+    </div>
+
+    <!-- ANOMALIES -->
+    <div class="card">
+        <h3>🚨 Detected Anomalies</h3>
+        <ul id="anomalyList"></ul>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Time</th>
+                    <th>IP</th>
+                    <th>Device</th>
+                    <th>Browser</th>
+                    <th>Country</th>
+                    <th>Fails</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <!-- Server render (initial load) -->
+            <tbody id="logTable">
+                {% for log in logs %}
+                <tr class="{{ 'alert-row' if log['prediction'] == 1 else '' }}">
+                    <td>{{ log["id"] }}</td>
+                    <td>{{ log["username"] }}</td>
+                    <td>{{ log["timestamp"] }}</td>
+                    <td>{{ log["ip_address"] }}</td>
+
+                    <td>{{ "Mobile" if log["device"] == 1 else "Desktop" }}</td>
+
+                    <td>
+                        {% if log["browser"] == 1 %}
+                            Chrome
+                        {% elif log["browser"] == 2 %}
+                            Firefox
+                        {% else %}
+                            Other
+                        {% endif %}
+                    </td>
+
+                    <td>{{ "Local" if log["country"] == 0 else "Unknown" }}</td>
+                    <td>{{ log["failed_attempts"] }}</td>
+
+                    <td>
+                        {% if log["prediction"] == 1 %}
+                            <span class="badge danger">Suspicious</span>
+                        {% else %}
+                            <span class="badge success">Normal</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+<!-- SAFE JSON (important for JS) -->
+<script id="logs-data" type="application/json">
+    {{ logs | tojson | safe }}
+</script>
+
+<script>
+    let logs = [];
+
+    try {
+        logs = JSON.parse(document.getElementById("logs-data").textContent);
+    } catch (e) {
+        console.error("Failed to parse logs JSON", e);
+        logs = [];
+    }
+</script>
+
+<!-- MAIN JS -->
+<script src="{{ url_for('static', filename='admin.js') }}"></script>
+
+</body>
+</html>

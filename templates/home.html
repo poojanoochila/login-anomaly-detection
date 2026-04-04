@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43);
+            color: #eaeff4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard {
+            width: 92%;
+            max-width: 1000px;
+            background: #1f2f36;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 600;
+            color: #f1f6f9;
+        }
+
+        .logout-btn {
+            background: #e5533d;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: #cf4632;
+        }
+
+        .welcome-box {
+            margin-bottom: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+        }
+
+        .welcome-box h2 {
+            margin: 0 0 6px 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .welcome-box p {
+            margin: 0;
+            font-size: 14px;
+            color: #e3f2fd;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: #2a3d45;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+            min-height: 170px;          
+            display: flex;              
+            flex-direction: column;
+            justify-content: center;    
+        }
+
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.45);
+        }
+
+        .icon {
+            font-size: 26px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            margin: 0 0 8px 0;
+            font-size: 17px;
+            font-weight: 600;
+            color: #f1f6f9;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 13.5px;
+            color: #cfd8dc;
+            line-height: 1.5;
+        }
+
+        /* Subtle accent colors for icons */
+        .icon.activity { color: #4fc3f7; }
+        .icon.security { color: #81c784; }
+        .icon.alert { color: #ffb74d; }
+        .icon.settings { color: #b39ddb; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+    <div class="header">
+        <h1>🔐 Security Dashboard</h1>
+        <a href="/logout"><button class="logout-btn">Logout</button></a>
+    </div>
+
+    <div class="welcome-box">
+        <h2>Welcome, {{ username }} 👋</h2>
+        <p>You have successfully logged in to the secure system.</p>
+    </div>
+
+    <div class="cards">
+
+<a href="{{ url_for('attacks') }}" style="text-decoration:none; color:inherit;">
+<div class="card">
+<span class="icon alert">🧨</span>
+<h3>Possible Attacks</h3>
+<p>Learn about common attacks like brute force, phishing, and credential stuffing.</p>
+</div>
+</a>
+
+<a href="{{ url_for('measures') }}" style="text-decoration:none; color:inherit;">
+<div class="card">
+<span class="icon security">🛡️</span>
+<h3>Security Measures</h3>
+<p>See how the system protects you using anomaly detection and monitoring.</p>
+</div>
+</a>
+
+<a href="{{ url_for('impact') }}" style="text-decoration:none; color:inherit;">
+<div class="card">
+<span class="icon activity">📉</span>
+<h3>Impact of Attacks</h3>
+<p>Understand what can happen if an account or system is compromised.</p>
+</div>
+</a>
+
+<a href="{{ url_for('tips') }}" style="text-decoration:none; color:inherit;">
+<div class="card">
+<span class="icon settings">📚</span>
+<h3>Safety Tips</h3>
+<p>Best practices to keep your account and data safe.</p>
+</div>
+</a>
+
+</div>
+
+
+
+
+</body>
+</html>
