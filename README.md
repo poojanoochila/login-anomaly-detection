@@ -106,6 +106,10 @@ This project demonstrates:
 * Implement real-time alerting
 * Improve feature engineering
 
+## Academic Context
+
+This project was developed as part of a 3rd semester MCA mini-project, with a focus on applying machine learning techniques to cybersecurity use cases such as login anomaly detection.
+
 ## Note
 
 Large datasets and trained model files are excluded for efficiency.
