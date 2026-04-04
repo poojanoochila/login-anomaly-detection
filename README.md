@@ -55,32 +55,59 @@ Anomalies include:
 git clone https://github.com/yourusername/login-anomaly-detection.git
 cd login-anomaly-detection
 pip install -r requirements.txt
+```
 
-Usage
+## Interface Preview
+
+### Login Page
+![Home](screenshots/login.png)
+
+### Home Page
+![Home](screenshots/home.png)
+
+### Detection Result
+![Result](screenshots/report.png)
+![Result](screenshots/table.png)
+
+## Usage
+
+```bash
 python app.py
-Then open:
-http://127.0.0.1:5000/
+```
 
-Model Training
+Then open in browser:
+[http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
+## Model Training
+
+```bash
 python ml/train_model.py
+```
 
-Security Relevance (SOC Perspective)
+## Security Relevance (SOC Perspective)
+
 This project demonstrates:
-- Behavioral anomaly detection
-- Threat identification logic
-- Practical application of ML in cybersecurity
-- Understanding of login-based attack patterns
 
-Limitations
-- Uses synthetic dataset
-- Not production-scale
-- Limited feature engineering
+* Behavioral anomaly detection
+* Threat identification logic
+* Practical application of ML in cybersecurity
+* Understanding of login-based attack patterns
 
-Future Improvements
-- Integrate real-world datasets
-- Add risk scoring system
-- Implement real-time alerting
-- Improve feature engineering
+## Limitations
 
-Note
-Large datasets and trained model files are excluded for efficiency. The model can be retrained using the provided scripts.
+* Uses synthetic dataset
+* Not production-scale
+* Limited feature engineering
+
+## Future Improvements
+
+* Integrate real-world datasets
+* Add risk scoring system
+* Implement real-time alerting
+* Improve feature engineering
+
+## Note
+
+Large datasets and trained model files are excluded for efficiency.
+The model can be retrained using the provided scripts.
+
