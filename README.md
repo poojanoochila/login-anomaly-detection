@@ -57,31 +57,37 @@ cd login-anomaly-detection
 pip install -r requirements.txt
 
 ## Usage
+
 python app.py
 Then open:
 http://127.0.0.1:5000/
 
 ## Model Training
+
 python ml/train_model.py
 
 ## Security Relevance (SOC Perspective)
 
 #### This project demonstrates:
+
 - Behavioral anomaly detection
 - Threat identification logic
 - Practical application of ML in cybersecurity
 - Understanding of login-based attack patterns
 
 ## Limitations
+
 - Uses synthetic dataset
 - Not production-scale
 - Limited feature engineering
 
 ## Future Improvements
+
 - Integrate real-world datasets
 - Add risk scoring system
 - Implement real-time alerting
 - Improve feature engineering
 
 ## Note
+
 Large datasets and trained model files are excluded for efficiency. The model can be retrained using the provided scripts.
