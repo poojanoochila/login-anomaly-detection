@@ -63,17 +63,31 @@ The system flags a login as suspicious based on:
   - **Normal**
   - **Anomalous (Potential Threat)**
 
-### Example Detection
+## Detection Workflow
+
+1. User login data is collected
+2. Features are extracted and scaled
+3. Data is balanced using SMOTE
+4. Model predicts normal or anomalous
+5. System flags suspicious activity
+   
+## Example Detection Output
 
 Input:
-- Login at 02:45 AM  
-- New IP address detected  
+- Login Time: 02:30 AM
+- IP Address: New / Unrecognized
 
 Output:
-- **Risk Level: HIGH**
-- **Reason:**
-  - Unusual login time  
-  - Suspicious IP change  
+- Prediction: Anomalous
+- Risk Level: HIGH
+- Reason:
+  - Unusual login time
+  - New IP address detected 
+
+## Model Performance
+
+Model evaluation metrics will vary depending on dataset split and preprocessing. 
+Typical performance includes strong recall for anomaly detection due to SMOTE balancing.
 
 ### Objectives
 
