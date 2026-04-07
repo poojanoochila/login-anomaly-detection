@@ -1,83 +1,91 @@
 # Login Anomaly Detection System
 
-This system implements a supervised machine learning pipeline to identify suspicious login activity, simulating detection workflows used in Security Operations Centers (SOC).
+This system uses a supervised machine learning pipeline to classify login attempts as normal or anomalous, simulating detection workflows used in Security Operations Centers (SOC).
 
-### Algorithms Used
+### Algorithms & Techniques Used
+- Logistic Regression
 - Random Forest Classifier
 - SMOTE (Synthetic Minority Oversampling Technique)
+- StandardScaler (Feature Scaling)
 
-### Problem Context
-Login anomaly detection is inherently an **imbalanced classification problem**, where:
-- Normal logins = majority class  
-- Anomalous/suspicious logins = minority class  
-
-This imbalance can lead to poor detection of real threats if not handled properly.
-
-### Solution Approach
+### Pipeline Overview
 
 #### 1. Data Preprocessing
 - Extracted time-based features (e.g., login hour)
-- Encoded categorical data (IP/user behavior patterns)
-- Cleaned and structured dataset for model training
+- Encoded categorical variables
+- Applied **StandardScaler** to normalize numerical features
 
 #### 2. Handling Class Imbalance (SMOTE)
+- Login anomaly datasets are highly imbalanced
 - Applied SMOTE to generate synthetic anomalous samples
-- Balanced the dataset to improve detection of rare events
-- Prevented bias toward normal login predictions
+- Improved model’s ability to detect rare suspicious events
 
-#### 3. Model Training (Random Forest)
-- Trained a Random Forest classifier on balanced data
-- Leveraged ensemble learning for robust predictions
-- Captured non-linear relationships in login behavior
+#### 3. Model Training
+
+**Logistic Regression**
+- Used as a baseline model
+- Provides interpretable results
+- Helps understand feature influence on predictions
+
+**Random Forest Classifier**
+- Used as the primary model
+- Captures complex behavioral patterns
+- Provides higher accuracy for anomaly classification
 
 ### Why This Approach?
 
-- **Random Forest**
-  - High accuracy on structured data
-  - Resistant to overfitting
-  - Suitable for security event classification
+- **StandardScaler**
+  - Ensures features are on the same scale
+  - Improves performance of Logistic Regression
 
 - **SMOTE**
-  - Essential for cybersecurity datasets with rare attack events
+  - Addresses class imbalance
   - Improves recall for anomaly detection
+
+- **Logistic Regression**
+  - Simple, interpretable baseline
+  - Useful for comparison
+
+- **Random Forest**
+  - Robust and accurate for structured data
+  - Handles non-linear relationships effectively
 
 ### Detection Logic
 
 The system flags a login as suspicious based on:
 - Unusual login time (e.g., late night activity)
-- Change in IP address patterns
+- New or unknown IP address
 - Deviation from user’s normal behavior
 
 ### Output Interpretation
 
-- The model classifies each login attempt as:
+- Each login attempt is classified as:
   - **Normal**
   - **Anomalous (Potential Threat)**
+
+- (Optional if implemented):
+  - Probability score indicating likelihood of anomaly
 
 ### Example Detection
 
 Input:
-- Login at 03:12 AM  
-- New/unrecognized IP address  
+- Login at 02:45 AM  
+- New IP address detected  
 
 Output:
 - **Risk Level: HIGH**
 - **Reason:**
   - Unusual login time  
-  - Suspicious IP deviation  
+  - Suspicious IP change  
 
 ### Objectives
 
-This project simulates real-world SOC detection scenarios:
+This project demonstrates:
 - Behavioral anomaly detection  
-- Suspicious login monitoring  
-- Early-stage threat identification  
-
-It reflects how security teams detect:
-- Account compromise attempts  
-- Credential misuse  
-- Insider threats  
-
+- Handling imbalanced security data  
+- Application of ML in threat detection  
+- Simulation of SOC monitoring workflows
+  
 ## Features
 - Time-based anomaly detection (odd-hour logins)
 - IP-based anomaly detection
