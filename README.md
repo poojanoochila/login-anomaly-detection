@@ -63,9 +63,6 @@ The system flags a login as suspicious based on:
   - **Normal**
   - **Anomalous (Potential Threat)**
 
-- (Optional if implemented):
-  - Probability score indicating likelihood of anomaly
-
 ### Example Detection
 
 Input:
