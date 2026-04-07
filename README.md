@@ -1,11 +1,82 @@
 # Login Anomaly Detection System
 
-This project implements a machine learning-based anomaly detection system to identify suspicious login behavior. It simulates real-world SOC (Security Operations Center) scenarios by analyzing login patterns such as time, IP address, and user behavior.
+This system implements a supervised machine learning pipeline to identify suspicious login activity, simulating detection workflows used in Security Operations Centers (SOC).
 
-## Key Objectives
-- Detect unusual login activity
-- Simulate security monitoring workflows
-- Apply anomaly detection techniques used in SOC environments
+### Algorithms Used
+- Random Forest Classifier
+- SMOTE (Synthetic Minority Oversampling Technique)
+
+### Problem Context
+Login anomaly detection is inherently an **imbalanced classification problem**, where:
+- Normal logins = majority class  
+- Anomalous/suspicious logins = minority class  
+
+This imbalance can lead to poor detection of real threats if not handled properly.
+
+### Solution Approach
+
+#### 1. Data Preprocessing
+- Extracted time-based features (e.g., login hour)
+- Encoded categorical data (IP/user behavior patterns)
+- Cleaned and structured dataset for model training
+
+#### 2. Handling Class Imbalance (SMOTE)
+- Applied SMOTE to generate synthetic anomalous samples
+- Balanced the dataset to improve detection of rare events
+- Prevented bias toward normal login predictions
+
+#### 3. Model Training (Random Forest)
+- Trained a Random Forest classifier on balanced data
+- Leveraged ensemble learning for robust predictions
+- Captured non-linear relationships in login behavior
+
+### Why This Approach?
+
+- **Random Forest**
+  - High accuracy on structured data
+  - Resistant to overfitting
+  - Suitable for security event classification
+
+- **SMOTE**
+  - Essential for cybersecurity datasets with rare attack events
+  - Improves recall for anomaly detection
+
+### Detection Logic
+
+The system flags a login as suspicious based on:
+- Unusual login time (e.g., late night activity)
+- Change in IP address patterns
+- Deviation from user’s normal behavior
+
+### Output Interpretation
+
+- The model classifies each login attempt as:
+  - **Normal**
+  - **Anomalous (Potential Threat)**
+
+### Example Detection
+
+Input:
+- Login at 03:12 AM  
+- New/unrecognized IP address  
+
+Output:
+- **Risk Level: HIGH**
+- **Reason:**
+  - Unusual login time  
+  - Suspicious IP deviation  
+
+### Objectives
+
+This project simulates real-world SOC detection scenarios:
+- Behavioral anomaly detection  
+- Suspicious login monitoring  
+- Early-stage threat identification  
+
+It reflects how security teams detect:
+- Account compromise attempts  
+- Credential misuse  
+- Insider threats  
 
 ## Features
 - Time-based anomaly detection (odd-hour logins)
@@ -15,11 +86,12 @@ This project implements a machine learning-based anomaly detection system to ide
 - Web interface using Flask
 
 ## Tech Stack
-- Python
-- Pandas, NumPy
-- Scikit-learn
-- Flask
-- SQLite
+
+- **Backend:** Flask  
+- **Machine Learning:** Scikit-learn (Random Forest), Imbalanced-learn (SMOTE)  
+- **Data Processing:** Pandas, NumPy  
+- **Visualization/UI:** HTML, CSS  
+- **Dataset:** Synthetic login activity dataset  
 
 ## Project Structure
 login-anomaly-detection/
@@ -29,6 +101,7 @@ login-anomaly-detection/
 │
 ├── ml/ # Machine learning modules
 │ ├── train_model.py
+| ├── evaluate_models.py
 │ ├── preprocessing.py
 │
 ├── templates/ # HTML templates
@@ -106,6 +179,14 @@ This project demonstrates:
 * Implement real-time alerting
 * Improve feature engineering
 
+## Real-World Application
+
+This system can be applied in:
+- Security Operations Centers (SOC)
+- Fraud detection systems
+- User behavior analytics (UBA)
+- Insider threat detection
+  
 ## Academic Context
 
 This project was developed as part of a 3rd semester MCA mini-project, with a focus on applying machine learning techniques to cybersecurity use cases such as login anomaly detection.
